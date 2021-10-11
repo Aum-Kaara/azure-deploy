@@ -7,27 +7,17 @@ stages:
   - stage: Deploy_ARM_Template
     displayName: Deploy_ARM_Template
     jobs:
-    - job: 
+    - job: 'Deploy_Azure_Resource'
       steps: 
-      - task: CopyFiles@2
-        inputs:
-          SourceFolder: '$(System.DefaultWorkingDirectory)\$(TemplateName)\'
-          Contents: '**'
-          TargetFolder: '$(Build.ArtifactStagingDirectory)\artifacts'
-          
-      - task: PublishPipelineArtifact@1
-        inputs:
-          targetPath: '$(Build.ArtifactStagingDirectory)\artifacts'
-          ArtifactName: 'artifact'
-          publishLocation: pipeline
-        
       - task: AzureResourceManagerTemplateDeployment@3
         inputs:
-          deploymentScope: 'Subscription'
-          azureResourceManagerConnection: 'Visual Studio Ultimate with MSDN(3f4b1df0-5d35-4ac1-a042-6a2eccf5bf1a)'
+          deploymentScope: 'Resource Group'
+          azureResourceManagerConnection: 'Dev'
           subscriptionId: '3f4b1df0-5d35-4ac1-a042-6a2eccf5bf1a'
+          action: 'Create Or Update Resource Group'
+          resourceGroupName: 'explore_azure_rest_api'
           location: 'East US'
           templateLocation: 'Linked artifact'
-          csmFile: '$(Build.ArtifactStagingDirectory)\artifact\main.json'
-          csmParametersFile: '$(Build.ArtifactStagingDirectory)\artifact\parameters.json'
+          csmFile: '$(System.DefaultWorkingDirectory)\$(TemplateName)\main.json'
+          csmParametersFile: '$(System.DefaultWorkingDirectory)\$(TemplateName)\parameters.json'
           deploymentMode: 'Incremental'
