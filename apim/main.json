@@ -18,11 +18,12 @@
       },
       "sku": {
         "type": "string",
-        "defaultValue": "Developer",
+        "defaultValue": "Consumption",
         "allowedValues": [
           "Developer",
           "Standard",
-          "Premium"
+          "Premium",
+          "Consumption"
         ],
         "metadata": {
           "description": "The pricing tier of this API Management service"
