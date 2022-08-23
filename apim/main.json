@@ -49,7 +49,7 @@
       }
     },
     "variables": {
-      "apiManagementServiceName": "[concat('apiservice', uniqueString(resourceGroup().id))]"
+      "apiManagementServiceName": "[concat('apiservice', 'Dev-mp')]"
     },
     "resources": [
       {
